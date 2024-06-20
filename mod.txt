@@ -1,0 +1,49 @@
+alertmanager:
+  alertmanagerSpec:
+    configSecret: alertmanager-rancher-monitoring-alertmanager
+    useExistingSecret: true
+
+global:
+  cattle:
+    clusterName: {{ common.cluster }}
+    rkePathPrefix: ""
+    rkeWindowsPathPrefix: ""
+    systemDefaultRegistry: docker.io
+    url: {{ k8s.rancher_url }}
+  systemDefaultRegistry: docker.io
+
+prometheus:
+  prometheusSpec:
+    limits:
+      memory: 2048Mi
+      cpu: 2000m
+    requests:
+      memory: 1750Mi
+      cpu: 750m
+    evaluationInterval: 1m
+    retentionSize: 50GiB
+    scrapeInterval: 1m
+
+rke2ControllerManager:
+  enabled: true
+
+rke2Etcd:
+  enabled: true
+
+rke2IngressNginx:
+  enabled: true
+
+rke2Proxy:
+  enabled: true
+
+rke2Scheduler:
+  enabled: true
+
+prometheus-adapter:
+  resources:
+    requests:
+      cpu: 750m
+      memory: 1750Mi
+    limits:
+      cpu: 2000m
+      memory: 2048Mi
